@@ -31,7 +31,13 @@
 /* --- YOUR IMPORTS GO HERE --- */
 import HeroSection from "./components/HeroSection";
 import FooterSection from "./components/FooterSection";
-
+import NavBar from "./components/NavBar";
+import RibbonTicker from "./components/RibbonTicker";
+import FeaturesSection from "./components/FeaturesSection";
+import ProductShowcase from "./components/ProductShowcase";
+import AboutSection from "./components/AboutSection";
+import CtaSection from "./components/CtaSection";
+import ContactSection from "./components/ContactSection";
 
 // STEP 2: Create and export the App component
 // Use: export default function App() { ... }
@@ -58,55 +64,46 @@ import FooterSection from "./components/FooterSection";
 /* --- YOUR COMPONENT CODE GOES HERE --- */
 
 export default function App() {
-    
   return (
     <div className="app">
+      <NavBar />
+      <RibbonTicker />
 
+      <section className="hero bg-hero">
+        <div className="hero-grid">
+          <HeroSection />
+        </div>
+      </section>
 
-        <section className="hero bg-hero">
-            <div className="hero-grid">
-                <HeroSection />
-            </div>
-        </section>
-        
+      {/* Features / Carousel */}
+      <section className="features be-features" id="shop">
+        <FeaturesSection />
+      </section>
 
-        {/* Features / Carousel */}
-        <section className="features be-features" id="shop">
+      {/* Product showcase */}
+      <section className="bg-cta">
+        <ProductShowcase />
+      </section>
 
-        </section>
+      {/* CTA */}
+      <section className="bg-cta">
+        <CtaSection />
+      </section>
 
+      {/* About */}
+      <section className="bg-cta" id="about">
+        <AboutSection />
+      </section>
 
-        {/* Product showcase */}
-        <section className="bg-cta">
+      {/* Contact */}
+      <section className="bg-cta" id="contact">
+        <ContactSection />
+      </section>
 
-        </section>
-
-
-        {/* CTA */}
-        <section className="bg-cta">
-
-        </section>
-
-
-        {/* About */}
-        <section className="bg-cta" id="about">
-
-        </section>
-
-
-        {/* Contact */}
-        <section className="bg-cta" id="contact">
-
-        </section>
-
-
-        {/* Footer */}
-        <section className="bg-footer">
-          <FooterSection/>
-        </section>
-
-
+      {/* Footer */}
+      <section className="bg-footer">
+        <FooterSection />
+      </section>
     </div>
-
-  )
+  );
 }
