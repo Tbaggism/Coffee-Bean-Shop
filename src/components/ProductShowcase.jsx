@@ -117,7 +117,7 @@ const products = [
   {
     name: "Ethiopian Harrar",
     origin: "Ethiopia",
-    price: "$18.99",
+    price: 18.99,
     roast: "Medium",
     notes: "Blueberry, dark chocolate, wine",
     image: imgEthiopianHarrar,
@@ -126,7 +126,7 @@ const products = [
   {
     name: "Colombian Supremo",
     origin: "Colombia",
-    price: "$16.99",
+    price: 16.99,
     roast: "Medium-Dark",
     notes: "Caramel, nutty, smooth finish",
     image: imgColombianSupremo,
@@ -135,7 +135,7 @@ const products = [
   {
     name: "Kenya AA",
     origin: "Kenya",
-    price: "$21.99",
+    price: 21.99,
     roast: "Light",
     notes: "Bright citrus, black currant, floral",
     image: imgKenyaAA,
@@ -144,7 +144,7 @@ const products = [
   {
     name: "Panama Geisha",
     origin: "Panama",
-    price: "$34.99",
+    price: 34.99,
     roast: "Light",
     notes: "Jasmine, bergamot, tropical fruit",
     image: imgPanamaGeisha,
@@ -153,7 +153,7 @@ const products = [
   {
     name: "Kona",
     origin: "Hawaii",
-    price: "$29.99",
+    price: 29.99,
     roast: "Medium",
     notes: "Brown sugar, macadamia, mild acidity",
     image: imgKona,
@@ -162,7 +162,7 @@ const products = [
   {
     name: "Guatemala Antigua",
     origin: "Guatemala",
-    price: "$17.99",
+    price: 17.99,
     roast: "Dark",
     notes: "Cocoa, spice, smoky sweetness",
     image: imgGuatemalaAntigua,
@@ -170,7 +170,7 @@ const products = [
   },
 ];
 
-export default function ProductShowcase() {
+export default function ProductShowcase({ onAddToCart }) {
     return (
       <div className="product-showcase">
         <ScrollReveal animation="fadeUp">
@@ -211,7 +211,7 @@ export default function ProductShowcase() {
                         <div className="product-card-info">
                             <div className="product-card-header">
                                 <h3>{product.name}</h3>
-                                <span className="product-price">{product.price}</span>
+                                <span className="product-price">${product.price.toFixed(2)}</span>
                             </div>
 
                             <p className="product-origin">
@@ -219,7 +219,12 @@ export default function ProductShowcase() {
                            </p>
 
                            <p className="product-notes">{product.notes}</p>
-                           <Button variant="primary" size="sm" className="w-full mt-3">
+                           <Button
+                            variant="primary"
+                            size="sm"
+                            className="w-full mt-3"
+                            onClick={() => onAddToCart(product)}
+                           >
                             Add to Cart
                            </Button>
                         </div>

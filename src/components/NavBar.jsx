@@ -32,6 +32,7 @@
 import {useState, useEffect} from "react";
 // AnimatePresence - lets an Element animate out before react removes it
 import {motion, AnimatePresence} from "framer-motion"
+import { ShoppingBag } from "lucide-react";
 import logo from "../assets/Beans_logo.png";
 import Button from "./ui/Button";
 
@@ -87,7 +88,7 @@ import Button from "./ui/Button";
 
 /* --- YOUR COMPONENT CODE GOES HERE --- */
 
-export default function NavBar(){
+export default function NavBar({ cartCount, onCartClick }){
     //hooks to be uptop
     // is the mobile drow down open?
     const [menuOpen, setMenuOpen] = useState(false);
@@ -135,10 +136,22 @@ export default function NavBar(){
             <a href="#contact">Contact</a>
           </nav>
 
-          {/* desktop cta */}
-          <Button variant="accent" size="sm" className="hidden md:inline-flex">
-            Order Now ☕
-          </Button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              className="cart-toggle"
+              onClick={onCartClick}
+              aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`}
+            >
+              <ShoppingBag size={20} aria-hidden="true" />
+              <span>Cart</span>
+              <span className="cart-count" aria-live="polite">{cartCount}</span>
+            </button>
+
+            <Button variant="accent" size="sm" className="hidden md:inline-flex">
+              Order Now ☕
+            </Button>
+          </div>
 
           {/* mobile hamburger - md: hidden means phones only */}
           <button

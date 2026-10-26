@@ -29,6 +29,7 @@
 // - ContactSection
 
 /* --- YOUR IMPORTS GO HERE --- */
+import { useCallback, useState } from "react";
 import HeroSection from "./components/HeroSection";
 import FooterSection from "./components/FooterSection";
 import NavBar from "./components/NavBar";
@@ -38,6 +39,7 @@ import ProductShowcase from "./components/ProductShowcase";
 import AboutSection from "./components/AboutSection";
 import CtaSection from "./components/CtaSection";
 import ContactSection from "./components/ContactSection";
+import Cart from "./components/Cart";
 
 // STEP 2: Create and export the App component
 // Use: export default function App() { ... }
@@ -64,9 +66,52 @@ import ContactSection from "./components/ContactSection";
 /* --- YOUR COMPONENT CODE GOES HERE --- */
 
 export default function App() {
+  const [cartItems, setCartItems] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const closeCart = useCallback(() => setCartOpen(false), []);
+
+  const addToCart = (product) => {
+    setCartItems((items) => {
+      const existingItem = items.find((item) => item.name === product.name);
+
+      if (existingItem) {
+        return items.map((item) =>
+          item.name === product.name
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+
+      return [...items, { ...product, quantity: 1 }];
+    });
+  };
+
+  const updateCartQuantity = (productName, quantity) => {
+    setCartItems((items) =>
+      quantity > 0
+        ? items.map((item) =>
+            item.name === productName ? { ...item, quantity } : item
+          )
+        : items.filter((item) => item.name !== productName)
+    );
+  };
+
+  const removeFromCart = (productName) => {
+    setCartItems((items) => items.filter((item) => item.name !== productName));
+  };
+
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <div className="app">
-      <NavBar />
+      <NavBar cartCount={cartCount} onCartClick={() => setCartOpen(true)} />
+      <Cart
+        items={cartItems}
+        isOpen={cartOpen}
+        onClose={closeCart}
+        onQuantityChange={updateCartQuantity}
+        onRemove={removeFromCart}
+      />
       <RibbonTicker />
 
       <section className="hero bg-hero">
@@ -82,7 +127,7 @@ export default function App() {
 
       {/* Product showcase */}
       <section className="bg-cta">
-        <ProductShowcase />
+        <ProductShowcase onAddToCart={addToCart} />
       </section>
 
       {/* CTA */}
